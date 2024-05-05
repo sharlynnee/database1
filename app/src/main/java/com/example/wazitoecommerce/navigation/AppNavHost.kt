@@ -8,8 +8,8 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.wazitoecommerce.ui.theme.screens.home.HomeScreen
 import com.example.wazitoecommerce.ui.theme.screens.login.LoginScreen
-import com.example.wazitoecommerce.ui.theme.screens.products.AddProductsScreen
-import com.example.wazitoecommerce.ui.theme.screens.products.ViewProductsScreen
+import com.example.wazitoecommerce.ui.theme.screens.parents.AddParentsScreen
+import com.example.wazitoecommerce.ui.theme.screens.parents.ViewParentsScreen
 import com.example.wazitoecommerce.ui.theme.screens.signup.SignupScreen
 
 @Composable
@@ -31,11 +31,11 @@ fun AppNavHost(
         composable(HOME_URL){
             HomeScreen(navController = navController)
         }
-        composable(ADD_PRODUCTS_URL){
-            AddProductsScreen(navController = navController)
+        composable(ADD_PARENTS_URL){
+            AddParentsScreen(navController = navController)
         }
-        composable(VIEW_PRODUCTS_URL){
-            ViewProductsScreen(navController = navController)
+        composable(VIEW_PARENTS_URL){
+            ViewParentsScreen(navController = navController)
         }
     }
 }

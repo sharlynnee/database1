@@ -1,4 +1,4 @@
-package com.example.wazitoecommerce.ui.theme.screens.products
+package com.example.wazitoecommerce.ui.theme.screens.parents
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column
@@ -27,23 +27,23 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import coil.compose.rememberAsyncImagePainter
-import com.example.wazitoecommerce.data.ProductViewModel
-import com.example.wazitoecommerce.models.Product
+import com.example.wazitoecommerce.data.ParentViewModel
+import com.example.wazitoecommerce.models.Parent
 import com.example.wazitoecommerce.ui.theme.WazitoECommerceTheme
 
 @Composable
-fun ViewProductsScreen(navController:NavHostController) {
+fun ViewParentsScreen(navController:NavHostController) {
     Column(modifier = Modifier.fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally) {
 
         var context = LocalContext.current
-        var productRepository = ProductViewModel(navController, context)
+        var parentRepository = ParentViewModel(navController, context)
 
 
-        val emptyProductState = remember { mutableStateOf(Product("","","","","")) }
-        var emptyProductsListState = remember { mutableStateListOf<Product>() }
+        val emptyParentState = remember { mutableStateOf(Parent("","","","","")) }
+        var emptyParentsListState = remember { mutableStateListOf<Parent>() }
 
-        var products = productRepository.allProducts(emptyProductState, emptyProductsListState)
+        var parents = parentRepository.allParents(emptyParentState, emptyParentsListState)
 
 
         Column(
@@ -51,7 +51,7 @@ fun ViewProductsScreen(navController:NavHostController) {
                 .fillMaxSize(),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Text(text = "All products",
+            Text(text = "All parents",
                 fontSize = 30.sp,
                 fontFamily = FontFamily.Cursive,
                 color = Color.Red)
@@ -59,17 +59,18 @@ fun ViewProductsScreen(navController:NavHostController) {
             Spacer(modifier = Modifier.height(20.dp))
 
             LazyColumn(){
-                items(products){
-                    ProductItem(
+                items(parents){
+                    ParentItem(
                         name = it.name,
-                        quantity = it.quantity,
-                        price = it.price,
+                        age = it.age,
+                        description = it.description,
                         id = it.id,
                         navController = navController,
-                        productRepository = productRepository,
-                        productImage = it.imageUrl
+                        parentRepository = parentRepository,
+                        parentImage = it.imageUrl
                     )
                 }
+
             }
         }
     }
@@ -77,21 +78,21 @@ fun ViewProductsScreen(navController:NavHostController) {
 
 
 @Composable
-fun ProductItem(name:String, quantity:String, price:String, id:String,
+fun ParentItem(name:String, age:String, description:String, id:String,
                 navController:NavHostController,
-                productRepository:ProductViewModel, productImage:String) {
+                parentRepository:ParentViewModel, parentImage:String) {
 
     Column(modifier = Modifier.fillMaxWidth()) {
         Text(text = name)
-        Text(text = quantity)
-        Text(text = price)
+        Text(text = age)
+        Text(text = description)
         Image(
-            painter = rememberAsyncImagePainter(productImage),
+            painter = rememberAsyncImagePainter(parentImage),
             contentDescription = null,
             modifier = Modifier.size(250.dp)
         )
         Button(onClick = {
-            productRepository.deleteProduct(id)
+            parentRepository.deleteParent(id)
         }) {
             Text(text = "Delete")
         }
@@ -105,8 +106,8 @@ fun ProductItem(name:String, quantity:String, price:String, id:String,
 
 @Composable
 @Preview(showBackground = true)
-fun ViewProductsScreenPreview(){
+fun ViewParentsScreenPreview(){
     WazitoECommerceTheme {
-        ViewProductsScreen(navController = rememberNavController())
+        ViewParentsScreen(navController = rememberNavController())
     }
 }
